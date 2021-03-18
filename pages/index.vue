@@ -33,41 +33,48 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations } from 'vuex'
 
 export default {
-  layout: "empty",
+  layout: 'empty',
   head: {
-    title: "Nuxt Chat!!!"
+    title: 'Nuxt Chat!!!'
   },
   data: () => ({
     valid: true,
-    name: "",
+    name: '',
     nameRules: [
-      v => !!v || "Введите имя",
-      v => (v && v.length <= 16) || "Имя не должно превышать 16 символов"
+      v => !!v || 'Введите имя',
+      v => (v && v.length <= 16) || 'Имя не должно превышать 16 символов'
     ],
-    room: "",
-    roomRules: [v => !!v || "Введите комнату"]
+    room: '',
+    roomRules: [v => !!v || 'Введите комнату']
   }),
   sockets: {
     connect: function() {
-      console.log("socket connected");
+      console.log('socket connected')
     }
   },
   methods: {
-    ...mapMutations(["setUser"]),
+    ...mapMutations(['setUser']),
     submit() {
       if (this.$refs.form.validate()) {
         const user = {
           name: this.name,
           room: this.room
-        };
+        }
 
-        this.setUser(user);
-        this.$router.push("/chat");
+        this.$socket.emit('userJoined', user, data => {
+          if (typeof data === 'string') {
+            console.error(data)
+          } else {
+            user.id = data.userId
+            this.setUser(user)
+            this.$router.push('/chat')
+          }
+        })
       }
     }
   }
-};
+}
 </script>

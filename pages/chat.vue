@@ -1,22 +1,23 @@
 <template>
   <div>
-    <h1>CHAT PAGE</h1>
-    <h2>{{ user.name }}</h2>
+    <ul>
+      <li v-for="m in messages" :key="m.text">{{ m.name }}: {{ m.text }}</li>
+    </ul>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 
 export default {
-  middleware: ["chat"],
+  middleware: ['chat'],
   head() {
     return {
       title: `Комната ${this.user.room}`
-    };
+    }
   },
   computed: {
-    ...mapState(["user"])
+    ...mapState(['user', 'messages'])
   }
-};
+}
 </script>
