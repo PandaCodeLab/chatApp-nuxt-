@@ -1,6 +1,7 @@
 export const state = () => ({
   user: {},
-  messages: []
+  messages: [],
+  users: []
 })
 
 export const mutations = {
@@ -9,11 +10,15 @@ export const mutations = {
   },
   clearData(state) {
     state.user = {}
-    state.messages = {}
+    state.messages = []
+    state.users = []
     console.log(state)
   },
   SOCKET_newMessage(state, message) {
     state.messages.push(message)
     console.log(state)
+  },
+  SOCKET_updateUsers(state, users) {
+    state.users = users
   }
 }
