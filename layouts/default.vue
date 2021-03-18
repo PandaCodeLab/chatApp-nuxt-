@@ -1,9 +1,9 @@
 <template>
   <v-app app dark>
-    <v-navigation-drawer app v-model="drawer">
+    <v-navigation-drawer app v-model="drawer" mobile-break-point="650">
       <v-list subheader>
         <v-subheader>Список пользователей в комнате</v-subheader>
-        <v-list-tile v-for="u in users" :key="u.title" avatar @click="">
+        <v-list-tile v-for="u in users" :key="u.title" avatar>
           <v-list-tile-content>
             <v-list-tile-title>{{ u.name }}</v-list-tile-title>
           </v-list-tile-content>
@@ -22,7 +22,7 @@
       <v-toolbar-title>Чат комнаты {{ user.room }}</v-toolbar-title>
     </v-toolbar>
     <v-content>
-      <div>
+      <div style="height: 100vh">
         <nuxt />
       </div>
     </v-content>
